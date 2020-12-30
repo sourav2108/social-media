@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        #lgbtn{
+            background-color: white;
+            transition: all 0.5;
+        }
+        #lgbtn:hover{
+             /* background-image: linear-gradient(to right,yellow,green); */
+             background-color: lightgreen;
+             border-radius: 50px;
+             color: black;
+        }
+    </style>
+    <title>Login & signup Page</title>
+</head>
+<body>
+    <!-- for login -->
+    <div class="container-fluid bg-primary">
+        <img style="visibility: hidden;" src="fb.jpg" width="64" height="64" class="rounded mr-3" alt=""><span class="h3 text-white ">SKbook</span>
+        <form class="float-right mt-3 form-inline " id="lfm">
+            <input type="text" class="form-control mr-3 mno" name="mob" autocomplete="off" autofocus placeholder="Enter Mobile No..">
+            <input type="password" class="form-control mr-3 pas" name="password"  placeholder="Enter Password....">
+            <input type="submit" value="login" id="lgbtn" class="btn">
+        </form>
+        <div style="text-align: right; margin-right: 100px;"><a href="#forgotmodal" data-toggle="modal" class="text-white" id="forgot" style="text-decoration: none;">forgot password?</a></div>
+    </div>
+    
+
+ <!-- for sign up -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 mt-4">
+                <img src="log.jpg" class="img-fluid" alt="">
+            </div>
+            <div class="col-6 mt-4 bg-light" style="background-color:lightsteelblue;">
+               <h3>Create an account</h3>
+               <form class="form" id="sfm">
+                <input type="text" name="name" autocomplete="off" placeholder="Enter Full Name..." class="form-control mt-4 nm">
+                <input type="text" name="mobno" autocomplete="off" placeholder="Enter Mobile No..." class="form-control mt-4 mob">
+                <input type="password" placeholder="Create Password..." name="pass" class="form-control mt-4 p">
+                <label for="" class="form-label mt-4">Birthday</label>
+                <input type="date" name="dob" class="form-control dob">
+                <label for="" class="form-label mt-4">Gender</label>
+                <div class="form-check mt-2">
+                 <input type="radio" id="f"  value="Female" name="gender"> <label for="f" class="form-check-label" >Female</label>
+                 <input type="radio" id="m" value="Male" class="ml-5" name="gender">  <label for="m" class="form-check-label" >   Male</label>
+                 </div>
+                <div class="text-center mt-4">
+                    <input type="submit" value="Sign Up" class="btn btn-lg btn-success " id="sbtn">
+                </div>
+               </form>
+              
+            </div>
+        </div>
+    </div>
+    <!-- for forgot password modal -->
+    <div class="modal fade" id="forgotmodal" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header mx-1 border-bottom border-primary">
+                    <h5 class="modal-title" style='text-transform: capitalize;' >Forgot password</h5>
+                    <button type="button" style="background-color: red;" class="btn-close msgcl" data-dismiss="modal" aria-label="close">X</button>
+                </div>
+                <div class="modal-body">
+                    <label for="forgottxt" class="form-label">Enter Your Mobile No</label>
+                    <input type="text" class="form-control" autofocus autocomplete="off" id="forgottxt">
+                    <div id="passshow"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="forgotbtn">Get Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script>
+        $(document).ready(function(){
+            // for signup
+          $("#sfm").submit(function(e){
+              e.preventDefault();
+              var name=$(".nm").val();
+              var mob=$(".mob").val();
+              var pass=$(".p").val();
+              var dob=$(".dob").val();
+
+              if(name=="" && mob=="" && pass=="" && dob=="")
+              {
+                alert("all field mendatory");
+              }
+              else if(mob.length !=10)
+              {
+                  alert("plz provid correct no");
+              }
+              else
+              {
+             $.ajax({
+                 url: "signup.php",
+                 type: "POST",
+                 data: $(this).serialize(),
+                 success: function(data){
+                     $("#sfm").trigger("reset");
+                     if(data)
+                     {
+                         alert("successfully register ....now u can login and enjoy");
+                         location:"login.html";
+                     }
+                     else{
+                         alert("something wnet wrong....try again");
+                     }
+                 }
+             });
+            }
+          });
+
+          $(".mob").blur(function(){
+              var val=$(".mob").val();
+              $.ajax({
+                  url: "checkmobno.php",
+                  type: "POST",
+                  data: {mobno:val},
+                  success: function(data){
+                      if(data==1)
+                      {
+                          alert("Mobile No already Exist....plz enter another no");
+                          $("#sbtn").attr("disabled",true);
+                      }
+                      else
+                      {
+                        $("#sbtn").attr("disabled",false);
+                      }
+                  }
+              });
+          });
+
+          $(".mob").keyup(function(){
+              var val=$(this).val();
+              var patt=/[a-zA-Z]/g;
+              if(patt.test(val))
+              {
+                  alert("Only No are allow");
+              }
+          });
+        //   for login 
+        
+        $("#lfm").submit(function(e){
+              e.preventDefault();
+              var mno=$(".mno").val();
+              var pass=$(".pas").val();
+              if(mno=="" && pass=="")
+              {
+                  alert("all field mendatory");
+              }
+              else{
+              $.ajax({
+               url: "lg.php",
+               type: "POST",
+               data: $(this).serialize(),
+               success: function(data){
+                   if(data==1)
+                   {
+                    $("#lfm").trigger("reset");
+                       location="index.php";
+                   }
+                   else{
+                       alert("Invalid mobno or password");
+                   }
+               }
+           });
+        }
+        });
+
+        // for forgot password
+
+        $("#forgotbtn").click(function(){
+            var no=$("#forgottxt").val();
+            $.ajax({
+                url: "forgot.php",
+                type: "POST",
+                data: {no:no},
+                success: function(data){
+                    $("#passshow").fadeIn();
+                    $("#passshow").html(data);
+                    $("#forgottxt").val("");
+                    setTimeout(function(){
+                        $("#passshow").fadeOut();
+                    },2000);
+                    
+                }
+            });
+        });
+
+        });
+    </script>
+</body>
+</html>
