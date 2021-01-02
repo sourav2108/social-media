@@ -6,21 +6,29 @@ $pass=$_POST['password'];
 
 //echo $mob;
 $obj=new database();
-$res=$obj->select("select * from user where mob_no=$mob and password='$pass'");
+$res=$obj->select("select * from user where mob_no=$mob");
 if($res)
 {
     $value=$obj->getresult();
-    $_SESSION['name']=$value[0]['name'];
-    $_SESSION['uid']=$value[0]['uid'];
-    if($obj->update("user",["status"=>'online'],"uid=".$_SESSION['uid'].""))
+    if(password_verify($pass,$value[0]['password']))
     {
-        echo "1";
-
+        $_SESSION['name']=$value[0]['name'];
+        $_SESSION['uid']=$value[0]['uid'];
+        if($obj->update("user",["status"=>'online'],"uid=".$_SESSION['uid'].""))
+        {
+            echo "1";
+    
+        }
+        else
+        {
+            echo "0";
+        }
     }
     else
     {
         echo "0";
     }
+    
     
 }
 else

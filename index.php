@@ -197,7 +197,7 @@ if(!isset($_SESSION['name']))
                 
                     <div class="card">
                         <a href="#"  style="text-decoration: none;">
-                            <img src="sk.jpg" class="mr-3 mt-2 mb-0 rounded-circle" width="64" height="64"  alt=""><h5 style='text-transform: capitalize; display:inline'>Default User</h5> add post
+                            <img src="default.jpg" class="mr-3 mt-2 mb-0 rounded-circle" width="64" height="64"  alt=""><h5 style='text-transform: capitalize; display:inline'>Default User</h5> add post
                         </a>
                         <div class="card-body">
                             <p class="card-text">Welcome to SKbook<p>
