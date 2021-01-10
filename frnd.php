@@ -30,7 +30,7 @@ if(!isset($_SESSION['name']))
     <!-- for frnd request -->
     <div class="container">
         <div class="row">
-            <div class="col-8 offset-2 mt-4">
+            <div class="col-sm-8 offset-sm-2 mt-4">
                 <ul class="list-unstyled">
                  <?php
                     if($obj->select("select * from user where uid in(select from_id from frnd where to_id=".$_SESSION['uid']." and f_status=1)"))
@@ -66,26 +66,23 @@ if(!isset($_SESSION['name']))
     <div class="container">
         <div class="row">
             <!-- for show  search frnd -->
-            <div class="col-4 offset-2 mt-4 border-right border-dark">
+            <div class="col-sm-4 offset-sm-2 mt-4 border-right border-dark">
                 <h3 class=" border-bottom border-primary"><input type="text" placeholder="Search Friends..." id="scrfrnd" class="border-0 form-control"></h3>
                 <ul class="list-unstyled" id="scrshow">
                    
                 </ul>    
             </div>
             <!-- for confirmed frnd -->
-            <div class="col-4 mt-4 text-center">
+            <div class="col-sm-4 mt-4">
+                <div class="border-bottom border-primary">
+                    <h4 id="frndshow"> Active Friend</h4>
+                </div>
                 <?php
                 
-                if($obj->select("select * from user where uid in((select from_id from frnd where to_id=".$_SESSION['uid']." and f_status=2)) or uid in(select to_id from frnd where from_id=".$_SESSION['uid']." and f_status=2)"))
+                if($obj->select("select * from user where status='online' uid in((select from_id from frnd where to_id=".$_SESSION['uid']." and f_status=2)) or uid in(select to_id from frnd where from_id=".$_SESSION['uid']." and f_status=2)"))
                 {
                     $r1=$obj->getresult();
-                    $size=sizeof($r1);
-
                    ?>
-                    <div class="border-bottom border-primary">
-                        <h4 id="frndshow">Friend <span class="badge badge-danger"><?php echo $size;?></span></h4>
-                    </div>
-
                     <div>
                         <?php
                         foreach($r1 as list("uid"=>$uid,"name"=>$name,"mob_no"=>$mob,"password"=>$pass,"create_date"=>$date,"dp"=>$dp,"gender"=>$gen,"dob"=>$dob))
@@ -117,7 +114,7 @@ if(!isset($_SESSION['name']))
                 }
                 else
                 {
-                    echo "<h3>You Have No Friend</h3>";
+                    echo "<h3 class='text-muted'>No one online</h3>";
                 }
                 ?>
                 

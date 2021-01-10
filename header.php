@@ -70,8 +70,8 @@ $obj=new database();
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-8 offset-2 border border-primary">
-                <nav class="navbar navbar-expand-lg">
+            <div class="col-sm-8 offset-sm-2 border border-primary">
+                <nav class="navbar navbar-expand-sm">
                     <a href="profile.php" class="navbar-brand">
                         <img src="<?php echo $path?>" width="64" height="64" class="rounded-circle mr-3" alt=""><?php echo "<h5 style='text-transform: capitalize; display:inline'>".$_SESSION['name']."</h5>"?>
                     </a>
@@ -81,11 +81,11 @@ $obj=new database();
                      
                     <div class="collapse navbar-collapse" id="headernav">
                         <ul class="navbar-nav">
-                            <li class="nav-item mr-5 ml-5  " id="hn"><a href="index.php" class="nav-link" ><i class="fas fa-home"></i></a></li>
-                            <li class="nav-item mr-5 " id="hn2"><a href="frnd.php" class="nav-link"><i class="fas fa-user-friends"></i><span class="badge badge-danger frndspan"><?php if($fno!=0){echo $fno;} ?></span></a></li>
-                            <li class="nav-item mr-5  " id="hn3"><a href="msg.php" class="nav-link"><i class="fas fa-comment-alt"></i><span class="badge badge-danger msgspan"><?php if($msgno!=0){echo $msgno;} ?></span></a></li>
-                            <li class="nav-item mr-5 " id="hn4"><a href="notification.php" class="nav-link"><i class="fas fa-bell"></i><span class="badge badge-danger ntspan"><?php if(($no+$lno)!=0){echo $no+$lno;} ?></span></a></li>
-                            <li class="nav-item mr-5 " id="hn5"><a href="profile.php" class="nav-link"><i class="far fa-id-card"></i></a></li>
+                            <li class="nav-item mr-2 ml-5  " id="hn"><a href="index.php" class="nav-link" ><i class="fas fa-home"></i></a></li>
+                            <li class="nav-item mr-2 " id="hn2"><a href="frnd.php" class="nav-link"><i class="fas fa-user-friends"></i><span class="badge badge-danger frndspan"><?php if($fno!=0){echo $fno;} ?></span></a></li>
+                            <li class="nav-item mr-2  " id="hn3"><a href="msg.php" class="nav-link"><i class="fas fa-comment-alt"></i><span class="badge badge-danger msgspan"><?php if($msgno!=0){echo $msgno;} ?></span></a></li>
+                            <li class="nav-item mr-2 " id="hn4"><a href="notification.php" class="nav-link"><i class="fas fa-bell"></i><span class="badge badge-danger ntspan"><?php if(($no+$lno)!=0){echo $no+$lno;} ?></span></a></li>
+                            <li class="nav-item mr-2 " id="hn5"><a href="profile.php" class="nav-link"><i class="far fa-id-card"></i></a></li>
                             <li class="nav-item dropdown" id="hn6">
                                 <a class="nav-link dropdown-toggle text-primary" id="dd" data-toggle="dropdown"></a>
                                     <ul class="dropdown-menu" aria-labelledby="dd">

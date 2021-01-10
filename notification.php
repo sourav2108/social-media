@@ -21,7 +21,7 @@ if(!isset($_SESSION['name']))
     <!-- for frnd request notification -->
     <div class="container">
         <div class="row">
-            <div class="col-4 offset-2 mt-4">
+            <div class="col-sm-4 offset-sm-2 mt-4">
                 <ul class="list-unstyled">
                   <?php
                     if($obj->select("select * from user where uid in(select from_id from frnd where to_id=".$_SESSION['uid'].")"))
@@ -57,7 +57,7 @@ if(!isset($_SESSION['name']))
             </div>
 
            <!-- for post like notification -->
-            <div class="col-4 mt-4">
+            <div class="col-sm-4 mt-4">
                 <ul class="list-unstyled">
                  <?php
                     if($obj->select("select * from likenotification where to_id=".$_SESSION['uid']." order by lnid desc"))

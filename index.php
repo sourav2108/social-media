@@ -14,6 +14,14 @@ if(!isset($_SESSION['name']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.min.css">
+    <style>
+       @media screen and (max-width: 600px){
+            #activefrndinhome
+            {
+                display: none;
+            }
+        }
+    </style>
     <title>HOME</title>
 </head>
 
@@ -24,7 +32,7 @@ if(!isset($_SESSION['name']))
     <div class="container">
         <div class="row">
             <!-- for all post -->
-            <div class="col-5 offset-2 border border-top-0 border-primary">
+            <div class="col-sm-5 offset-sm-2 border border-top-0 border-primary">
                 <div class="text-right">
                     <button class="btn btn-success mt-3" data-toggle="modal" data-target="#postmodal">Add Post</button>
                 </div><br>
@@ -210,7 +218,7 @@ if(!isset($_SESSION['name']))
 
              <!-- for activ friend -->
             </div>
-            <div class="col-3 border-right border-primary">
+            <div class="col-sm-3 border-right border-primary" id="activefrndinhome">
                 <div class="border-bottom border-primary">
                     <h4 id="frndshow" class="mt-3">Active Friend</h4>
                 </div>

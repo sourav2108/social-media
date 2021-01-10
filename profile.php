@@ -25,6 +25,14 @@ else
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.min.css">
+    <style>
+       @media screen and (max-width: 600px){
+            #about h4
+            {
+                display: block;
+            }
+        }
+    </style>
     <title><?Php echo $nam ?></title>
     </head>
     <body>
@@ -46,7 +54,7 @@ else
                     ?>   
                 <div class="container">
                     <div class="row">
-                        <div class="col-8 offset-2 border  border-top-0 border-success">
+                        <div class="col-sm-8 offset-sm-2 border  border-top-0 border-success">
                             <div class="text-center">
                                 <img src="<?php echo $pic; ?>" class="rounded-circle mb-2 mt-4 dpim" width="200" height="200" ><br>
                                 <?php        
@@ -96,6 +104,18 @@ else
                                    ?>
                                     <button class="btn btn-primary" data-uid="<?php echo $id?>" data-toggle="modal" data-target="#msgmodal" id="mbtn">Message</button>
                                    <?php
+                                   if($obj->select("select * from follow where from_id=".$_SESSION['uid']." and to_id=$id"))
+                                   {
+                                       ?>
+                                       <button class="btn btn-success" data-uid="<?php echo $id?>" id="followbtn">Unfollow</button>
+                                       <?php
+                                   }
+                                   else
+                                   {
+                                       ?>
+                                       <button class="btn btn-primary" data-uid="<?php echo $id?>" id="followbtn">Follow</button>
+                                       <?php
+                                   }
                                 }
                                ?>
                             </div>
@@ -103,16 +123,16 @@ else
                             <div class="ml-4" >
                                 <h2 class="border-bottom border-primary">About</h2>
 
-                                <div class="text-center">
-                                    <h4 class="d-inline text-primary mr-5 ml-3">Gender : <span class="h5"><?php echo $gen ?></span></h4>
-                                    <h4 class="d-inline text-primary">Date of Birth : <span class="h5"><?php echo $dob ?></span></h4><br>
+                                <div id='about'>
+                                    <h4 style='display: inline-block; margin-right:20px;' class="text-primary ml-3">Gender : <span class="h5"><?php echo $gen ?></span></h4>
+                                    <h4 style='display: inline-block; margin-right:20px;' class="text-primary">Date of Birth : <span class="h5"><?php echo $dob ?></span></h4><br>
                                     <div class="mt-3">
-                                        <h4 class="d-inline text-primary mr-3 ">Mobile No : <span class="h5"><?php echo $mob ?></span></h4>
-                                        <h4 class="d-inline text-primary "> Create Date : <span class="h5"><?php echo $date ?></span></h4>
+                                        <h4 style='display: inline-block; margin-right:20px;' class="text-primary ">Mobile No : <span class="h5"><?php echo $mob ?></span></h4>
+                                        <h4 style='display: inline-block; margin-right:20px;' class="text-primary "> Create Date : <span class="h5"><?php echo $date ?></span></h4>
                                     </div>
                                 </div>
                             </div>
-                            <div class="ml-4 " id="act">
+                            <div class="ml-4 mt-2 " id="act">
                                 <h2 class="border-bottom border-primary">Friends</h2> 
                                 <?php
                                 if($obj->select("select * from user where uid in((select from_id from frnd where to_id=$id and f_status=2)) or uid in(select to_id from frnd where from_id=$id and f_status=2)"))
@@ -162,6 +182,108 @@ else
                                     echo "<h3> No Friends</h3>";
                                 }
                                 ?>
+                            </div>
+                            <div class="ml-4 mt-4">
+                               <div class="row">
+                                   <div class="col-sm-6">
+                                        <h2 class="border-bottom border-primary">Follower</h2>
+                                        <?php
+                                           if($obj->select("select * from user where uid in (select from_id from follow where to_id=$id)"))
+                                           {
+                                               $follow=$obj->getresult();
+                                               foreach($follow as list("uid"=>$uidf,"name"=>$namef,"mob_no"=>$mobf,"password"=>$passf,"create_date"=>$datef,"dp"=>$dpf,"gender"=>$genf,"dob"=>$dobf ,"status"=>$statusf))
+                                               {
+                                                    if(empty($dpff))
+                                                    {
+                                                        $picl="default.jpg";
+                                                    }
+                                                    else
+                                                    {
+                                                        $picl="images/dp/$uidf/$dpf";
+                                                    }
+                                                   if($statusf=='online')
+                                                   {
+                                                       ?>
+                                                        <ul class="list-unstyled">
+                                                            <li>
+                                                                <a href="profile.php?uid=<?php echo $uidf?>" style="text-decoration: none;">
+                                                                    <img src="<?php echo $picl?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""><div style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display:inline-block"></div> <?php echo "<h5 style='text-transform: capitalize; display:inline;'>$namef</h5>"?>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+                                                       <?php
+                                                   }
+                                                   else
+                                                   {
+                                                      ?>
+                                                        <ul class="list-unstyled">
+                                                            <li>
+                                                                <a href="profile.php?uid=<?php echo $uidf?>" style="text-decoration: none;">
+                                                                    <img src="<?php echo $picl?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""><?php echo "<h5 style='text-transform: capitalize; display:inline;'>$namef</h5>"?>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                      <?php 
+                                                   }
+                                               }
+                                           }
+                                           else
+                                           {
+                                               echo "<h4 class='text-muted'>No One Followers</h4>";
+                                           }
+                                        ?>
+                                   </div>
+                                   <div class="col-sm-6 border-left border-primary">
+                                        <h2 class="border-bottom border-primary">Follows</h2>
+                                        <?php
+                                           if($obj->select("select * from user where uid in (select to_id from follow where from_id=$id)"))
+                                           {
+                                               $follow=$obj->getresult();
+                                               foreach($follow as list("uid"=>$uidff,"name"=>$nameff,"mob_no"=>$mobff,"password"=>$passff,"create_date"=>$dateff,"dp"=>$dpff,"gender"=>$genff,"dob"=>$dobff ,"status"=>$statusff))
+                                               {
+                                                    if(empty($dpff))
+                                                    {
+                                                        $picll="default.jpg";
+                                                    }
+                                                    else
+                                                    {
+                                                        $picll="images/dp/$uidff/$dpff";
+                                                    }
+                                                   if($statusff=='online')
+                                                   {
+                                                       ?>
+                                                        <ul class="list-unstyled">
+                                                            <li>
+                                                                <a href="profile.php?uid=<?php echo $uidff?>" style="text-decoration: none;">
+                                                                    <img src="<?php echo $picll?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""><div style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display:inline-block"></div> <?php echo "<h5 style='text-transform: capitalize; display:inline;'>$nameff</h5>"?>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+                                                       <?php
+                                                   }
+                                                   else
+                                                   {
+                                                      ?>
+                                                        <ul class="list-unstyled">
+                                                            <li>
+                                                                <a href="profile.php?uid=<?php echo $uidff?>" style="text-decoration: none;">
+                                                                    <img src="<?php echo $picll?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""><?php echo "<h5 style='text-transform: capitalize; display:inline;'>$nameff</h5>"?>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                      <?php 
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                echo "<h4 class='text-muted'>No One</h4>";
+                                            }
+                                        ?>
+                                    </div>
+                               </div>
                             </div>
                             <div class="ml-4 mt-4">
                                 <h2 class="border-bottom border-primary">Profile Photos</h2>
@@ -420,6 +542,35 @@ else
             setInterval(function(){
                 $("#act").load(" #act");
             },500);
+            
+            // for following button
+            $("#followbtn").click(function(){
+                var id=$(this).data("uid");
+                $.ajax({
+                    url: "follow.php",
+                    type: "POST",
+                    data: {uid:id},
+                    success: function(data)
+                    {
+                        if(data=='unfollow')
+                        {
+                            $("#followbtn").html("Unfollow");
+                            $("#followbtn").removeClass("btn-primary");
+                            $("#followbtn").addClass("btn-success");
+                        }
+                        else if(data=='follow')
+                        {
+                            $("#followbtn").html("Follow");
+                            $("#followbtn").addClass("btn-primary");
+                            $("#followbtn").removeClass("btn-success");
+                        }
+                        else
+                        {
+                            alert("some error occur");
+                        }
+                    }
+                });
+            });
         });
         </script>
     </body>

@@ -21,13 +21,13 @@ if(!isset($_SESSION['name']))
     ?>
     <div class="container">
         <div class="row">
-            <div class="col-8 mt-4 offset-2">
+            <div class="col-sm-8 mt-4 offset-sm-2">
                 <ul class="list-unstyled">
                     <?php
                     if($obj->select("select * from user where uid in(select distinct(from_id) from msg where to_id=".$_SESSION['uid']."  order by mid desc)"))
                     {
                         $output=$obj->getresult();
-                        foreach($output as list("uid"=>$uid,"name"=>$name,"mob_no"=>$mob,"password"=>$pass,"create_date"=>$date,"dp"=>$dp,"gender"=>$gen,"dob"=>$dob))
+                        foreach($output as list("uid"=>$uid,"name"=>$name,"mob_no"=>$mob,"password"=>$pass,"create_date"=>$date,"dp"=>$dp,"gender"=>$gen,"dob"=>$dob,"status"=>$st))
                         {
                             
                             if(empty($dp))
@@ -46,35 +46,51 @@ if(!isset($_SESSION['name']))
                                 {
                                     if($uid==$u)
                                     {
+                                        if($st=='online')
+                                        {
                                        ?>
-                                        <li style="background-color: lightblue; border-radius: 20px;">
-                                            <a href="#msgmodal" data-toggle="modal" class="msg" data-uid="<?php echo $uid?>"  style="text-decoration: none;">
-                                                <img src="<?php echo $p1?>"  class="mr-1 mt-2 rounded-circle" width="64" height="64"  alt=""><div style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display:inline-block"></div> <?php echo "<h5 style='text-transform: capitalize; color: black; display:inline;'>$name</h5> <span style='color:black;'> send Massage </span>"?>
-                                            </a>
-                                        </li>
-                                        <?php  
-                                    }
-                                    else
-                                    {
-                                      ?>
-                                        <li>
-                                            <a href="#msgmodal" data-toggle="modal" class="msg" data-uid="<?php echo $uid?>"  style="text-decoration: none;">
-                                                <img src="<?php echo $p1?>"  class="mr-1 mt-2 rounded-circle" width="64" height="64"  alt=""><div style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display:inline-block"></div> <?php echo "<h5 style='text-transform: capitalize; display:inline;'>$name</h5> send Massage"?>
-                                            </a>
-                                        </li>
-                                        <?php
+                                            <li style="background-color: lightblue; border-radius: 20px;">
+                                                <a href="#msgmodal" data-toggle="modal" class="msg" data-uid="<?php echo $uid?>"  style="text-decoration: none;">
+                                                    <img src="<?php echo $p1?>"  class="mr-1 mt-2 rounded-circle" width="64" height="64"  alt=""><div style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display:inline-block"></div> <?php echo "<h5 style='text-transform: capitalize; color: black; display:inline;'>$name</h5> <span style='color:black;'> send Massage </span>"?>
+                                                </a>
+                                            </li>
+                                         <?php 
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                            <li style="background-color: lightblue; border-radius: 20px;">
+                                                <a href="#msgmodal" data-toggle="modal" class="msg" data-uid="<?php echo $uid?>"  style="text-decoration: none;">
+                                                    <img src="<?php echo $p1?>"  class="mr-1 mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='text-transform: capitalize; color: black; display:inline;'>$name</h5> <span style='color:black;'> send Massage </span>"?>
+                                                </a>
+                                            </li>
+                                            <?php
+                                        } 
                                     }
                                 }
                             }
                             else
                             {
+                                if($st=='online')
+                                {
                                 ?>
-                                <li>
-                                    <a href="#msgmodal" data-toggle="modal" class="msg" data-uid="<?php echo $uid?>"  style="text-decoration: none;">
-                                        <img src="<?php echo $p1?>"  class="mr-1 mt-2 rounded-circle" width="64" height="64"  alt=""><div style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display:inline-block"></div> <?php echo "<h5 style='text-transform: capitalize; display:inline;'>$name</h5> send Massage"?>
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="#msgmodal" data-toggle="modal" class="msg" data-uid="<?php echo $uid?>"  style="text-decoration: none;">
+                                            <img src="<?php echo $p1?>"  class="mr-1 mt-2 rounded-circle" width="64" height="64"  alt=""><div style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display:inline-block"></div> <?php echo "<h5 style='text-transform: capitalize; display:inline;'>$name</h5> send Massage"?>
+                                        </a>
+                                    </li>
                                  <?php
+                                }
+                                else
+                                {
+                                    ?>
+                                    <li>
+                                        <a href="#msgmodal" data-toggle="modal" class="msg" data-uid="<?php echo $uid?>"  style="text-decoration: none;">
+                                            <img src="<?php echo $p1?>"  class="mr-1 mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='text-transform: capitalize; display:inline;'>$name</h5> send Massage"?>
+                                        </a>
+                                    </li>
+                                    <?php 
+                                }
                             }
                         }
                     }
