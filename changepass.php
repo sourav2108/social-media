@@ -2,7 +2,7 @@
 session_start();
 $id=$_SESSION['uid'];
 require "database.php";
-$pass=$_POST['pass'];
+$pass=password_hash($_POST['pass'],PASSWORD_BCRYPT);
 $obj=new database();
 if($obj->update("user",["password"=>$pass],"uid=$id"))
 {

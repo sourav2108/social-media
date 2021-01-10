@@ -28,7 +28,6 @@
             <input type="password" class="form-control mr-3 pas" name="password"  placeholder="Enter Password....">
             <input type="submit" value="login" id="lgbtn" class="btn">
         </form>
-        <div style="text-align: right; margin-right: 100px;"><a href="#forgotmodal" data-toggle="modal" class="text-white" id="forgot" style="text-decoration: none;">forgot password?</a></div>
     </div>
     
 
@@ -56,25 +55,6 @@
                 </div>
                </form>
               
-            </div>
-        </div>
-    </div>
-    <!-- for forgot password modal -->
-    <div class="modal fade" id="forgotmodal" data-backdrop="static" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header mx-1 border-bottom border-primary">
-                    <h5 class="modal-title" style='text-transform: capitalize;' >Forgot password</h5>
-                    <button type="button" style="background-color: red;" class="btn-close msgcl" data-dismiss="modal" aria-label="close">X</button>
-                </div>
-                <div class="modal-body">
-                    <label for="forgottxt" class="form-label">Enter Your Mobile No</label>
-                    <input type="text" class="form-control" autofocus autocomplete="off" id="forgottxt">
-                    <div id="passshow"></div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" id="forgotbtn">Get Password</button>
-                </div>
             </div>
         </div>
     </div>
@@ -176,27 +156,7 @@
         }
         });
 
-        // for forgot password
-
-        $("#forgotbtn").click(function(){
-            var no=$("#forgottxt").val();
-            $.ajax({
-                url: "forgot.php",
-                type: "POST",
-                data: {no:no},
-                success: function(data){
-                    $("#passshow").fadeIn();
-                    $("#passshow").html(data);
-                    $("#forgottxt").val("");
-                    setTimeout(function(){
-                        $("#passshow").fadeOut();
-                    },2000);
-                    
-                }
-            });
-        });
-
-        });
+    });
     </script>
 </body>
 </html>

@@ -3,8 +3,6 @@ session_start();
 require "database.php";
 $mob=$_POST['mob'];
 $pass=$_POST['password'];
-
-//echo $mob;
 $obj=new database();
 $res=$obj->select("select * from user where mob_no=$mob");
 if($res)
