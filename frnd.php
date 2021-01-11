@@ -72,14 +72,14 @@ if(!isset($_SESSION['name']))
                    
                 </ul>    
             </div>
-            <!-- for confirmed frnd -->
+            <!-- for active frnd -->
             <div class="col-sm-4 mt-4">
                 <div class="border-bottom border-primary">
                     <h4 id="frndshow"> Active Friend</h4>
                 </div>
                 <?php
                 
-                if($obj->select("select * from user where status='online' uid in((select from_id from frnd where to_id=".$_SESSION['uid']." and f_status=2)) or uid in(select to_id from frnd where from_id=".$_SESSION['uid']." and f_status=2)"))
+                if($obj->select("select * from user where status='online' and uid in(select from_id from frnd where to_id=".$_SESSION['uid']." and f_status=2) or status='online' and uid in(select to_id from frnd where from_id=".$_SESSION['uid']." and f_status=2)"))
                 {
                     $r1=$obj->getresult();
                    ?>
@@ -101,7 +101,7 @@ if(!isset($_SESSION['name']))
                             <ul class="list-unstyled">
                                 <li>
                                     <a href="profile.php?uid=<?php echo $uid?>" style="text-decoration: none;">
-                                        <img src="<?php echo $p1?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='text-transform: capitalize; display:inline;'>$name</h5>"?>
+                                        <img src="<?php echo $p1?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""><div style="height: 10px; width: 10px; background-color: green; border-radius: 50%; display:inline-block"></div> <?php echo "<h5 style='text-transform: capitalize; display:inline;'>$name</h5>"?>
                                     </a>
                                 </li>
 
@@ -126,8 +126,8 @@ if(!isset($_SESSION['name']))
 
 
     <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
+    <script src="js/bootstrap.js"></script>
     <script src="js/count.js"></script>
     <script src="js/frnd.js"></script>
     <script>

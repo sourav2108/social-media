@@ -64,6 +64,27 @@ $obj=new database();
   }
   
 ?>
+    <style>
+        #uname
+        {
+            text-transform: capitalize;
+            display:inline;
+        }
+        #hnav li
+        {
+            width: 30px;
+            margin:5px 40px;
+            text-align: center;
+        }
+        @media screen and (max-width: 600px)
+        {
+            #hnav li
+            {
+                margin:5px 10px;
+            }
+        }
+    
+    </style>
     <!-- for header -->
     <div class="container text-center">
          <h3>SKbook</h3>
@@ -71,36 +92,34 @@ $obj=new database();
     <div class="container">
         <div class="row">
             <div class="col-sm-8 offset-sm-2 border border-primary">
-                <nav class="navbar navbar-expand-sm">
-                    <a href="profile.php" class="navbar-brand">
-                        <img src="<?php echo $path?>" width="64" height="64" class="rounded-circle mr-3" alt=""><?php echo "<h5 style='text-transform: capitalize; display:inline'>".$_SESSION['name']."</h5>"?>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headernav" aria-controls="headernav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon "><i class="fas fa-bars"></i></span>
-                    </button>
-                     
-                    <div class="collapse navbar-collapse" id="headernav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item mr-2 ml-5  " id="hn"><a href="index.php" class="nav-link" ><i class="fas fa-home"></i></a></li>
-                            <li class="nav-item mr-2 " id="hn2"><a href="frnd.php" class="nav-link"><i class="fas fa-user-friends"></i><span class="badge badge-danger frndspan"><?php if($fno!=0){echo $fno;} ?></span></a></li>
-                            <li class="nav-item mr-2  " id="hn3"><a href="msg.php" class="nav-link"><i class="fas fa-comment-alt"></i><span class="badge badge-danger msgspan"><?php if($msgno!=0){echo $msgno;} ?></span></a></li>
-                            <li class="nav-item mr-2 " id="hn4"><a href="notification.php" class="nav-link"><i class="fas fa-bell"></i><span class="badge badge-danger ntspan"><?php if(($no+$lno)!=0){echo $no+$lno;} ?></span></a></li>
-                            <li class="nav-item mr-2 " id="hn5"><a href="profile.php" class="nav-link"><i class="far fa-id-card"></i></a></li>
-                            <li class="nav-item dropdown" id="hn6">
-                                <a class="nav-link dropdown-toggle text-primary" id="dd" data-toggle="dropdown"></a>
-                                    <ul class="dropdown-menu" aria-labelledby="dd">
-                                        <li><a href="logout.php" class="dropdown-item bg-primary text-white mb-2 rounded">logout</a></li>
-                                        <li><a href="#changepassmodal" data-toggle="modal" class="dropdown-item bg-primary text-white rounded mb-2">Change Password</a></li>
-                                        <li><a href="#changemobmodal" data-toggle="modal" class="dropdown-item bg-primary text-white rounded">Change Mobile No</a></li>
-                                    </ul>
+                
+                    <div class="text-center">
+                        <a href="profile.php" class="navbar-brand">
+                            <img src="<?php echo $path?>" width="34" height="34" class="rounded-circle mr-3" alt=""><?php echo "<h5 id='uname'>".$_SESSION['name']."</h5>"?>
+                        </a>
+                    </div>
+                        <ul id="hnav" class="list-inline">
+                            <li class="list-inline-item" id="hn"><a href="index.php"  ><i class="fas fa-home"></i></a></li>
+                            <li class="list-inline-item" id="hn2"><a href="frnd.php" ><i class="fas fa-user-friends"></i><span class="badge badge-danger frndspan"><?php if($fno!=0){echo $fno;} ?></span></a></li>
+                            <li class="list-inline-item" id="hn3"><a href="msg.php" ><i class="fas fa-comment-alt"></i><span class="badge badge-danger msgspan"><?php if($msgno!=0){echo $msgno;} ?></span></a></li>
+                            <li class="list-inline-item" id="hn4"><a href="notification.php" ><i class="fas fa-bell"></i><span class="badge badge-danger ntspan"><?php if(($no+$lno)!=0){echo $no+$lno;} ?></span></a></li>
+                            <li class="list-inline-item" id="hn5"><a href="profile.php" ><i class="far fa-id-card"></i></a></li>
+                            <li class="list-inline-item dropdown" id="hn6">
+                                <button class="dropdown-toggle btn btn-outline-primary " data-toggle="dropdown"></button>
+                                <div class="dropdown-menu">
+                                <a href="logout.php" class="dropdown-item bg-primary text-white mb-2 rounded">logout</a>
+                                <a href="#changepassmodal" data-toggle="modal" class="dropdown-item bg-primary text-white rounded mb-2">Change Password</a>
+                                <a href="#changemobmodal" data-toggle="modal" class="dropdown-item bg-primary text-white rounded">Change Mobile No</a>
+                                </div>
                             </li>
                         </ul>
-                    </div>
+                    
                 </nav>
             </div>
         </div>
     </div>
 
+    
     <!-- for change password  modal -->
 <div class="modal fade" id="changepassmodal" data-backdrop="static" tabindex="-1">
     <div class="modal-dialog">

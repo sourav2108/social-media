@@ -129,8 +129,8 @@ if(!isset($_SESSION['name']))
 
 
     <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
+    <script src="js/bootstrap.js"></script>
     <script src="js/count.js"></script>
     <script src="js/showmsg.js"></script>
     <script>
