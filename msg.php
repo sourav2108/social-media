@@ -22,10 +22,42 @@ if(!isset($_SESSION['name']))
     <div class="container">
         <div class="row">
             <div class="col-sm-8 mt-4 offset-sm-2">
-                <ul class="list-unstyled">
+                <div class="border-bottom" style="overflow-x: auto; ">
+                    <h3>Messages</h3>
+                    <?php
+                    if($obj->select("select * from user where status='online' and uid in(select from_id from frnd where to_id=".$_SESSION['uid']." and f_status=2) or status='online' and uid in(select to_id from frnd where from_id=".$_SESSION['uid']." and f_status=2)"))
+                    {
+                        
+                        $act=$obj->getresult();
+                        foreach($act as list("uid"=>$uidact,"name"=>$nameact,"mob_no"=>$mobact,"password"=>$passact,"create_date"=>$dateact,"dp"=>$dpact,"gender"=>$genact,"dob"=>$dobact))
+                        {
+                            $p1;
+                            if(empty($dpact))
+                            {
+                                $pact="default.jpg";
+                            }
+                            else
+                            {
+                                $pact="images/dp/$uidact/$dpact";
+                            }
+                            ?>
+                            <ul class="list-unstyled float-left" >
+                                <li><a href="#msgmodal" data-toggle="modal" class="msg" data-uid="<?php echo $uidact?>"  style="text-decoration: none; margin-right: 20px;">
+                                    <img src="<?php echo $pact?>"  class="mt-2 rounded-circle" width="34" height="34"  alt=""><div style="height: 6px; width: 6px; background-color: green; border-radius: 50%; display:inline-block"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <?php
+                        }   
+ 
+                    }     
+                    ?>
+                </div>
+                <ul class="list-unstyled" style="clear: both;">
                     <?php
                     if($obj->select("select * from user where uid in(select distinct(from_id) from msg where to_id=".$_SESSION['uid']."  order by mid desc)"))
                     {
+                        $cc=0;
                         $output=$obj->getresult();
                         foreach($output as list("uid"=>$uid,"name"=>$name,"mob_no"=>$mob,"password"=>$pass,"create_date"=>$date,"dp"=>$dp,"gender"=>$gen,"dob"=>$dob,"status"=>$st))
                         {
@@ -41,6 +73,7 @@ if(!isset($_SESSION['name']))
 
                             if($obj->select("select uid from user where uid in(select distinct(from_id) from msg where to_id=".$_SESSION['uid']." and status=0)"))
                             {
+                                $cc=1;
                                 $res=$obj->getresult();
                                 foreach($res as list("uid"=>$u))
                                 {
@@ -69,7 +102,8 @@ if(!isset($_SESSION['name']))
                                     }
                                 }
                             }
-                            else
+
+                           else
                             {
                                 if($st=='online')
                                 {
@@ -92,6 +126,7 @@ if(!isset($_SESSION['name']))
                                     <?php 
                                 }
                             }
+                            
                         }
                     }
                     else
@@ -118,7 +153,7 @@ if(!isset($_SESSION['name']))
                
                 </div>
                 <div class="ml-1 mb-4">
-                    <form action="" class="form-inline">
+                    <form action="#" class="form-inline msgfm" >
                         <input type="hidden" name="toid" id="toid">
                         <input type="text" id="txt" autocomplete="off" size="50" class="form-control border border-primary"><button class="btn btn-outline-success send"><i class="fas fa-paper-plane sendicon"></i></button>
                     </form>

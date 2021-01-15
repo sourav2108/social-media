@@ -33,9 +33,30 @@ if(!isset($_SESSION['name']))
         <div class="row">
             <!-- for all post -->
             <div class="col-sm-5 offset-sm-2 border border-top-0 border-primary">
-                <div class="text-right">
+              <?php
+                if($obj->select("select * from user where uid=".$_SESSION['uid'].""))
+                {
+                    $upic=$obj->getresult();
+                    if(empty($upic[0]['dp']))
+                    {
+                        $up="default.jpg";
+                    }
+                    else
+                    {
+                        $up="images/dp/".$_SESSION['uid']."/".$upic[0]['dp']."";
+                    }
+                }
+              ?>
+                
+                <div class="float-left">
+                    <a href="profile.php?uid=<?php echo $_SESSION['uid']?>"  style="text-decoration: none;">
+                        <img src="<?php echo $up?>" class="mb-3 mt-2  rounded-circle" width="64" height="64"  alt="">
+                    </a>
+                </div>
+                <div class="float-right">
                     <button class="btn btn-success mt-3" data-toggle="modal" data-target="#postmodal">Add Post</button>
-                </div><br>
+                </div>
+                <br>
                 <?php
                 
                 if($obj->select("select * from post where uid=".$_SESSION['uid']."  or uid in(select uid from user where uid in((select from_id from frnd where to_id=".$_SESSION['uid']." and f_status=2)) or uid in(select to_id from frnd where from_id=".$_SESSION['uid']." and f_status=2)) order by pid desc"))
@@ -132,7 +153,7 @@ if(!isset($_SESSION['name']))
                             {
                                 ?>
                                 <!-- show post which current user already like -->
-                                <div class="card">
+                                <div class="card" style="clear: both;">
                                     <a href="profile.php?uid=<?php echo $ui?>"  style="text-decoration: none;">
                                          <img src="<?php echo $dir?>" class="mr-3 mt-2 mb-0 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='text-transform: capitalize; display:inline'>".$out[0]['name']."</h5>  $about"?>
                                     </a><span style="color: #34b7f1; margin-left:70px;"><?php echo $ago?></span>
@@ -167,7 +188,7 @@ if(!isset($_SESSION['name']))
                                 
                              ?>
                                <!-- show post which current user not like -->
-                                <div class="card">
+                                <div class="card" style="clear: both;">
                                     <a href="profile.php?uid=<?php echo $ui?>"  style="text-decoration: none;">
                                     <img src="<?php echo $dir?>" class="mr-3 mt-2 mb-0 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='text-transform: capitalize; display:inline'>".$out[0]['name']."</h5>   $about"?>
                                     </a><span style="color: #34b7f1; margin-left:70px;"><?php echo $ago?></span>
@@ -203,7 +224,7 @@ if(!isset($_SESSION['name']))
                 else
                 {?>
                 
-                    <div class="card">
+                    <div class="card" style="clear: both;">
                         <a href="#"  style="text-decoration: none;">
                             <img src="default.jpg" class="mr-3 mt-2 mb-0 rounded-circle" width="64" height="64"  alt=""><h5 style='text-transform: capitalize; display:inline'>Default User</h5> add post
                         </a>
@@ -300,7 +321,7 @@ if(!isset($_SESSION['name']))
                
                 </div>
                 <div class="ml-1 mb-4">
-                    <form action="" class="form-inline">
+                    <form action="" class="form-inline msgfm">
                         <input type="hidden" name="toid" id="toid">
                         <input type="text" id="txt" autocomplete="off" size="50" class="form-control border border-primary"><button class="btn btn-outline-success send"><i class="fas fa-paper-plane sendicon"></i></button>
                     </form>

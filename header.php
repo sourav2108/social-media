@@ -95,7 +95,7 @@ $obj=new database();
                 
                     <div class="text-center">
                         <a href="profile.php" class="navbar-brand">
-                            <img src="<?php echo $path?>" width="34" height="34" class="rounded-circle mr-3" alt=""><?php echo "<h5 id='uname'>".$_SESSION['name']."</h5>"?>
+                            <?php echo "<h5 id='uname'>".$_SESSION['name']."</h5>"?>
                         </a>
                     </div>
                         <ul id="hnav" class="list-inline">
@@ -104,7 +104,7 @@ $obj=new database();
                             <li class="list-inline-item" id="hn3"><a href="msg.php" ><i class="fas fa-comment-alt"></i><span class="badge badge-danger msgspan"><?php if($msgno!=0){echo $msgno;} ?></span></a></li>
                             <li class="list-inline-item" id="hn4"><a href="notification.php" ><i class="fas fa-bell"></i><span class="badge badge-danger ntspan"><?php if(($no+$lno)!=0){echo $no+$lno;} ?></span></a></li>
                             <li class="list-inline-item" id="hn5"><a href="profile.php" ><i class="far fa-id-card"></i></a></li>
-                            <li class="list-inline-item dropdown" id="hn6">
+                            <li class="list-inline-item dropstart" id="hn6">
                                 <button class="dropdown-toggle btn btn-outline-primary " data-toggle="dropdown"></button>
                                 <div class="dropdown-menu">
                                 <a href="logout.php" class="dropdown-item bg-primary text-white mb-2 rounded">logout</a>

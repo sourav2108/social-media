@@ -60,15 +60,20 @@ $(document).ready(function(){
             }
            });
     }
-    $("#txt").keyup(function(e){
-        var toi=$("#toid").val();
-        var msg=$("#txt").val();
+    $("#txt").keydown(function(e){
+        var to=$("#toid").val();
+        var ms=$("#txt").val();
         if(e.keyCode===13)
         {
             if(msg !="")
             {
-                store(toi,msg);
-            } 
+                store(to,ms);
+                break;
+            }
+            else
+            {
+                alert("plz write msg");
+            }  
         }
     });
     $(".send").click(function(e){

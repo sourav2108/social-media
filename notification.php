@@ -41,7 +41,7 @@ if(!isset($_SESSION['name']))
                             ?>
                             <li>
                                 <a href="profile.php?uid=<?php echo $uid?>" style="text-decoration: none;">
-                                    <img src="<?php echo $p?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='font-weight:bold; text-transform: capitalize; display:inline;'>$name</h5> send friend request"?>
+                                    <img src="<?php echo $p?>"  class=" mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='font-weight:bold; text-transform: capitalize; display:inline;'>$name</h5> send friend request"?>
                                 </a>
                             </li>
                             <?php
@@ -97,7 +97,7 @@ if(!isset($_SESSION['name']))
                                       ?>
                                         <li>
                                             <a href="likepostdetails.php?pid=<?php echo $p?>" style="background-color:lightblue; text-decoration: none;">
-                                                <img src="<?php echo $p1?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='font-weight:bold; color: black; text-transform: capitalize; display:inline;'>$nam</h5> <span style='color:black;'>$abut</span>"?> </a>
+                                                <img src="<?php echo $p1?>"  class=" mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='font-weight:bold; color: black; text-transform: capitalize; display:inline;'>$nam</h5> <span style='color:black;'>$abut</span>"?> </a>
                                         </li>
                                         <?php
                                     }
@@ -106,7 +106,7 @@ if(!isset($_SESSION['name']))
                                       ?>
                                         <li>
                                             <a href="likepostdetails.php?pid=<?php echo $p?>" style="text-decoration: none;">
-                                                <img src="<?php echo $p1?>"  class="mr-3 mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='font-weight:bold; text-transform: capitalize; display:inline;'>$nam</h5> <span>$abut</span>"?> 
+                                                <img src="<?php echo $p1?>"  class=" mt-2 rounded-circle" width="64" height="64"  alt=""> <?php echo "<h5 style='font-weight:bold; text-transform: capitalize; display:inline;'>$nam</h5> <span>$abut</span>"?> 
                                             </a>
                                         </li>
                                         <?php
